@@ -34,8 +34,20 @@ THE SOFTWARE.
                 <xsl:if test="os:Image[@type='image/vnd.microsoft.icon']">
                     <link rel="shortcut icon" href="{os:Image[@type='image/vnd.microsoft.icon']}"/>
                 </xsl:if>
+		<link rel="search" type="application/opensearchdescription+xml" href="#" title="{os:ShortName}"/>
 
                 <script>
+                    function canInstallSearchProvider() {
+                        var installable = false;
+                        try {
+                            window.external.AddSearchProvider("");
+                        }
+                        catch (e) {
+                            installable = e.message === "Permission denied";
+                        }
+			return installable;
+                    }
+
                     function installSearchProvider(searchProvider) {
                         if (window.external &amp;&amp; ("AddSearchProvider" in window.external)) {
                             window.external.AddSearchProvider(searchProvider);
@@ -56,6 +68,12 @@ THE SOFTWARE.
                             .replace(/\{outputEncoding\??\}/g, "UTF-8")
                             .replace(/\{[^\}]*\}/g, "");
                     }
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        if (canInstallSearchProvider()) {
+                            document.getElementsByTagName("html").className += " installable";
+                        }
+                    });
                 </script>
 
                 <style>
@@ -64,6 +82,8 @@ THE SOFTWARE.
                     img { vertical-align: middle; margin: 2pt; }
                     p, blockquote, form { margin-left: 30pt; }
                     input[type='text'] { width: 50%; }
+		    .installText { display: none; }
+		    .installable .installText { display: block; }
                 </style>
             </head>
             <body>
@@ -84,7 +104,7 @@ THE SOFTWARE.
                     </blockquote>
                 </xsl:if>
                 <h2>Install</h2>
-                <p>Using the following link, you may <a href='javascript:installSearchProvider(location)'>install this OpenSearch description.</a></p>
+                <p class="installText">Using the following link, you may <a href='javascript:installSearchProvider(location)'>install this OpenSearch description.</a></p>
                 <xsl:if test='os:Url'>
                     <h2>Search</h2>
                     <xsl:apply-templates select='os:Url[@rel="results" or not(@rel)]'/>
@@ -102,7 +122,7 @@ THE SOFTWARE.
            <xsl:choose>
                <xsl:when test="not(@type) or @type='text/html'">HTML results</xsl:when>
                <xsl:when test="@type='application/rss+xml' or @type='application/atom+xml'">feed results</xsl:when>
-               <xsl:otherwise>unknown format (<xsl:value-of select="@type"/>)</xsl:otherwise>
+               <xsl:otherwise><xsl:value-of select="@type"/> results</xsl:otherwise>
            </xsl:choose>
         </xsl:variable>
         <form onsubmit='doSearch({generate-id(.)}SearchInput.value, "{@template}"); return false;'>
