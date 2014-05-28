@@ -38,14 +38,16 @@ THE SOFTWARE.
 
                 <script>
                     function canInstallSearchProvider() {
-                        var installable = false;
-                        try {
-                            window.external.AddSearchProvider("");
+                        var installable = typeof window.external.AddSearchProvider === "function";
+                        if (!installable) {
+                            try {
+			    window.external.AddSearchProvider(""); // window.external in IE isn't enumerable.
+                            }
+                            catch (e) {
+                                installable = e.message === "Permission denied";
+                            }
                         }
-                        catch (e) {
-                            installable = e.message === "Permission denied";
-                        }
-			return installable;
+                        return installable;
                     }
 
                     function installSearchProvider(searchProvider) {
