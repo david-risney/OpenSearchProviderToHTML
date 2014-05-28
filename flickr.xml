@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="http://deletethis.net/dave/search/sp.xslt" type="text/xsl"?>
+<?xml-stylesheet href="http://david-risney.github.io/OpenSearchProviderToHTML/sp.xslt" type="text/xsl"?>
 <OpenSearchDescription
    xmlns="http://a9.com/-/spec/opensearch/1.1/"
    xmlns:ie="http://schemas.microsoft.com/Search/2008/">
@@ -7,5 +7,5 @@
     <Url type="text/html" template="http://www.flickr.com/search/?q={searchTerms}&amp;w=all"/>
     <Url type="application/atom+xml" template="http://api.flickr.com/services/feeds/photos_public.gne?tags={searchTerms}&amp;tagmode=any"/>
     <ie:PreviewUrl template="http://www.flickr.com/search/show/?q={searchTerms}&amp;ss=2"/>
-    <Image height="16" width="16" type="image/icon">http://www.flickr.com/favicon.ico</Image>
+    <Image height="16" width="16" type="image/icon">https://s.yimg.com/pw/favicon.ico</Image>
 </OpenSearchDescription>

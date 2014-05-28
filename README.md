@@ -12,7 +12,7 @@ This is an XSLT to reference from your [OpenSearch provider XML](http://www.open
 
 Add the following line to the top of your OpenSearch provider XML
 
-    <?xml-stylesheet href="http://deletethis.net/dave/search/sp.xslt" type="text/xsl"?>
+    <?xml-stylesheet href="http://david-risney.github.io/OpenSearchProviderToHTML/sp.xslt" type="text/xsl"?>
 
 ## License
 
