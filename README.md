@@ -15,6 +15,10 @@ Add the following line to the top of your OpenSearch provider XML.
 
     <?xml-stylesheet href="sp.xslt" type="text/xsl"?>
 
+## Example
+
+ - [Flickr provider](http://david-risney.github.io/OpenSearchProviderToHTML/flickr.xml) ([source](flickr.xml))
+
 ## License
 
 Available under the [MIT license](LICENSE).
