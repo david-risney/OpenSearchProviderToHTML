@@ -28,7 +28,6 @@ THE SOFTWARE.
  xmlns:os='http://a9.com/-/spec/opensearch/1.1/' >
     <xsl:output method="html"/>
     <xsl:template match="os:OpenSearchDescription">
-        <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
         <html>
             <head>
                 <xsl:if test="os:Image[@type='image/vnd.microsoft.icon']">
@@ -41,7 +40,7 @@ THE SOFTWARE.
                         var installable = typeof window.external.AddSearchProvider === "function";
                         if (!installable) {
                             try {
-			    window.external.AddSearchProvider(""); // window.external in IE isn't enumerable.
+                                window.external.AddSearchProvider(""); // window.external in IE isn't enumerable.
                             }
                             catch (e) {
                                 installable = e.message === "Permission denied";
@@ -73,7 +72,7 @@ THE SOFTWARE.
 
                     document.addEventListener("DOMContentLoaded", function() {
                         if (canInstallSearchProvider()) {
-                            document.getElementsByTagName("html").className += " installable";
+                            document.getElementsByTagName("html")[0].className += " installable ";
                         }
                     });
                 </script>
@@ -100,13 +99,15 @@ THE SOFTWARE.
                 <xsl:if test="os:Description or os:Image">
                     <blockquote>
                         <xsl:if test="os:Image">
-                            <img src="{os:Image}"/>
+                            <img src="{os:Image}" onerror="this.style.display='none';"/>
                         </xsl:if>
                         <xsl:value-of select="os:Description"/>
                     </blockquote>
                 </xsl:if>
-                <h2>Install</h2>
-                <p class="installText">Using the following link, you may <a href='javascript:installSearchProvider(location)'>install this OpenSearch description.</a></p>
+                <div class="installText">
+                    <h2>Install</h2>
+                    <p>Using the following link, you may <a href='javascript:installSearchProvider(location);'>install this OpenSearch description.</a></p>
+                </div>
                 <xsl:if test='os:Url'>
                     <h2>Search</h2>
                     <xsl:apply-templates select='os:Url[@rel="results" or not(@rel)]'/>
