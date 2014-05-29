@@ -10,9 +10,10 @@ This is an XSLT to reference from your [OpenSearch provider XML](http://www.open
 
 ## Usage
 
-Add the following line to the top of your OpenSearch provider XML
+Copy sp.xslt to the same origin as your provider XML file. 
+Add the following line to the top of your OpenSearch provider XML.
 
-    <?xml-stylesheet href="http://david-risney.github.io/OpenSearchProviderToHTML/sp.xslt" type="text/xsl"?>
+    <?xml-stylesheet href="sp.xslt" type="text/xsl"?>
 
 ## License
 
